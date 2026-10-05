@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lora, Raleway } from "next/font/google";
+import AuraCursor from "@/components/AuraCursor";
 import "./globals.css";
 
 const lora = Lora({
@@ -127,7 +128,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <AuraCursor />
+        {children}
+      </body>
     </html>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 import {
   Flower2,
   Sparkles,
@@ -20,7 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-/* ───── Inline icons ───── */
+/* ───── Inline SVG icons ───── */
 function InstaIcon({ size = 20, className = "" }: { size?: number; className?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -31,18 +32,19 @@ function InstaIcon({ size = 20, className = "" }: { size?: number; className?: s
   );
 }
 
-/* ───── constants ───── */
-const WA_LINK = "https://api.whatsapp.com/send/?phone=529844632344&text=Hola%20Amatista%2C%20me%20gustar%C3%ADa%20agendar%20una%20cita";
-const WA_PKG = (pkg: string) => `https://api.whatsapp.com/send/?phone=529844632344&text=Hola%20Amatista%2C%20quiero%20reservar%20el%20paquete%20${encodeURIComponent(pkg)}`;
+/* ───── Constants ───── */
+const WA = "https://api.whatsapp.com/send/?phone=529844632344&text=Hola%20Amatista%2C%20me%20gustar%C3%ADa%20agendar%20una%20cita";
+const WA_PKG = (p: string) => `https://api.whatsapp.com/send/?phone=529844632344&text=Hola%20Amatista%2C%20quiero%20reservar%20el%20paquete%20${encodeURIComponent(p)}`;
 const IG = "https://www.instagram.com/amatistabeautyandspa";
-const MAPS_COORDS = { lat: 20.6318, lng: -87.0686 };
-const MAPS_QUERY = "Amatista+Beauty+Spa+Playa+del+Carmen";
+const COORDS = { lat: 20.6318, lng: -87.0686 };
+
 function getDirectionsUrl() {
-  if (typeof navigator === "undefined") return `https://www.google.com/maps/dir/?api=1&destination=${MAPS_COORDS.lat},${MAPS_COORDS.lng}`;
+  if (typeof navigator === "undefined") return `https://www.google.com/maps/dir/?api=1&destination=${COORDS.lat},${COORDS.lng}`;
   const ua = navigator.userAgent || "";
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  if (isIOS) return `maps://maps.apple.com/?daddr=${MAPS_COORDS.lat},${MAPS_COORDS.lng}&dirflg=d`;
-  return `https://www.google.com/maps/dir/?api=1&destination=${MAPS_COORDS.lat},${MAPS_COORDS.lng}&destination_place_id=${MAPS_QUERY}`;
+  return isIOS
+    ? `maps://maps.apple.com/?daddr=${COORDS.lat},${COORDS.lng}&dirflg=d`
+    : `https://www.google.com/maps/dir/?api=1&destination=${COORDS.lat},${COORDS.lng}`;
 }
 
 const NAV = [
@@ -54,14 +56,14 @@ const NAV = [
 ];
 
 const SERVICES = [
-  { icon: Flower2, name: "Masajes Relajantes", en: "Relaxing Massages", desc: "Relajá cuerpo y mente con nuestros masajes terapéuticos y descontracturantes.", descEn: "Relax body and mind with our therapeutic deep tissue massages.", price: "$800 MXN" },
-  { icon: Sparkles, name: "Tratamientos Faciales", en: "Facial Treatments", desc: "Rejuvenecé tu piel con tratamientos personalizados de hidratación profunda.", descEn: "Rejuvenate your skin with personalized deep hydration treatments.", price: "$700 MXN" },
-  { icon: Gem, name: "Manicure & Pedicure", en: "Manicure & Pedicure", desc: "Uñas perfectas con técnicas de vanguardia: Gel, Acrílico, Russian Manicure.", descEn: "Perfect nails with cutting-edge techniques: Gel, Acrylic, Russian Manicure.", price: "$550 MXN" },
-  { icon: Eye, name: "Extensiones de Pestañas", en: "Lash Extensions", desc: "Mirada cautivadora con extensiones profesionales pelo por pelo.", descEn: "Captivating look with professional individual lash extensions.", price: "$600 MXN" },
-  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN" },
-  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN" },
-  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN" },
-  { icon: Heart, name: "Tratamientos Corporales", en: "Body Treatments", desc: "Envolturas, exfoliaciones y tratamientos reductivos para tu bienestar.", descEn: "Body wraps, exfoliations and slimming treatments for your wellness.", price: "$800 MXN" },
+  { icon: Flower2, name: "Masajes Relajantes", en: "Relaxing Massages", desc: "Relajá cuerpo y mente con nuestros masajes terapéuticos y descontracturantes.", descEn: "Relax body and mind with our therapeutic deep tissue massages.", price: "$800 MXN", img: "/images/spa-massage.jpg" },
+  { icon: Sparkles, name: "Tratamientos Faciales", en: "Facial Treatments", desc: "Rejuvenecé tu piel con tratamientos personalizados de hidratación profunda.", descEn: "Rejuvenate your skin with personalized deep hydration treatments.", price: "$700 MXN", img: "/images/spa-facial.jpg" },
+  { icon: Gem, name: "Manicure & Pedicure", en: "Manicure & Pedicure", desc: "Uñas perfectas con técnicas de vanguardia: Gel, Acrílico, Russian Manicure.", descEn: "Perfect nails with cutting-edge techniques: Gel, Acrylic, Russian Manicure.", price: "$550 MXN", img: "/images/spa-nails.jpg" },
+  { icon: Eye, name: "Extensiones de Pestañas", en: "Lash Extensions", desc: "Mirada cautivadora con extensiones profesionales pelo por pelo.", descEn: "Captivating look with professional individual lash extensions.", price: "$600 MXN", img: "/images/spa-lashes.jpg" },
+  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN", img: null },
+  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN", img: null },
+  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN", img: null },
+  { icon: Heart, name: "Tratamientos Corporales", en: "Body Treatments", desc: "Envolturas, exfoliaciones y tratamientos reductivos para tu bienestar.", descEn: "Body wraps, exfoliations and slimming treatments for your wellness.", price: "$800 MXN", img: "/images/spa-relax.jpg" },
 ];
 
 const PACKAGES = [
@@ -77,15 +79,15 @@ const TESTIMONIALS = [
 ];
 
 const GALLERY = [
-  { label: "Recepción", gradient: "from-primary-light to-secondary-light" },
-  { label: "Massage Room", gradient: "from-secondary to-accent-light" },
-  { label: "Nail Station", gradient: "from-primary to-primary-light" },
-  { label: "Facial Room", gradient: "from-accent-light to-secondary-light" },
-  { label: "Lounge", gradient: "from-secondary-light to-muted" },
-  { label: "Details", gradient: "from-primary-light to-accent-light" },
+  { label: "Recepción / Reception", img: "/images/spa-reception.jpg", span: true },
+  { label: "Masajes / Massage Room", img: "/images/spa-massage.jpg", span: false },
+  { label: "Uñas / Nail Station", img: "/images/spa-nails.jpg", span: false },
+  { label: "Facial Room", img: "/images/spa-facial.jpg", span: false },
+  { label: "Ambiente / Atmosphere", img: "/images/spa-candles.jpg", span: false },
+  { label: "Interior", img: "/images/spa-interior.jpg", span: false },
 ];
 
-/* ───── scroll reveal ───── */
+/* ───── Scroll reveal ───── */
 function useReveal(sel: string) {
   useEffect(() => {
     const els = document.querySelectorAll(sel);
@@ -97,14 +99,14 @@ function useReveal(sel: string) {
           obs.unobserve(e.target);
         }
       }),
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, [sel]);
 }
 
-/* ═══ PAGE ═══ */
+/* ═══════════════════ PAGE ═══════════════════ */
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -119,10 +121,10 @@ export default function Home() {
   useEffect(() => {
     if (!hero.current) return;
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.fromTo(".hero-t", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 })
+    tl.fromTo(".hero-logo", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.2 })
+      .fromTo(".hero-t", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1 }, "-=0.6")
       .fromTo(".hero-s", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
-      .fromTo(".hero-c", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.3")
-      .fromTo(".hero-d", { opacity: 0, scale: 0.8 }, { opacity: 0.3, scale: 1, duration: 1.2 }, "-=1");
+      .fromTo(".hero-c", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.3");
   }, []);
 
   useReveal(".rv");
@@ -144,51 +146,60 @@ export default function Home() {
 
   return (
     <>
-      {/* NAV */}
+      {/* ══ NAV ══ */}
       <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/90 backdrop-blur-md shadow-sm border-b border-border" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-20">
-          <a href="#inicio" className="flex flex-col">
-            <span className="font-heading text-xl sm:text-2xl font-semibold tracking-[0.2em] text-primary-dark">AMATISTA</span>
-            <span className="text-[10px] sm:text-xs tracking-[0.15em] text-accent font-body">BELLEZA QUE TRANSMUTA</span>
+          <a href="#inicio" className="flex items-center gap-3">
+            <Image src="/images/logo.png" alt="Amatista Beauty & Spa" width={48} height={48} className="h-10 w-auto sm:h-12" priority />
+            <div className="hidden sm:flex flex-col">
+              <span className="font-heading text-lg font-semibold tracking-[0.15em] text-primary-dark">AMATISTA</span>
+              <span className="text-[9px] tracking-[0.12em] text-accent font-body -mt-0.5">BELLEZA QUE TRANSMUTA</span>
+            </div>
           </a>
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {NAV.map((l) => <a key={l.href} href={l.href} className="text-sm font-body font-medium text-foreground/70 hover:text-primary transition-colors cursor-pointer">{l.label}</a>)}
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="ml-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors cursor-pointer">Reservar Cita</a>
+            <a href={WA} target="_blank" rel="noopener noreferrer" className="ml-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-colors cursor-pointer">Reservar Cita</a>
           </div>
           <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-foreground cursor-pointer" aria-label="Menu">{open ? <X size={24} /> : <Menu size={24} />}</button>
         </div>
         {open && (
           <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border px-4 py-4 flex flex-col gap-3">
             {NAV.map((l) => <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-base font-body font-medium text-foreground/80 hover:text-primary py-2 cursor-pointer">{l.label}</a>)}
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="mt-2 px-5 py-3 bg-primary text-white text-center font-semibold rounded-full cursor-pointer">Reservar Cita</a>
+            <a href={WA} target="_blank" rel="noopener noreferrer" className="mt-2 px-5 py-3 bg-primary text-white text-center font-semibold rounded-full cursor-pointer">Reservar Cita</a>
           </div>
         )}
       </nav>
 
-      {/* HERO */}
+      {/* ══ HERO ══ */}
       <section id="inicio" ref={hero} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 via-background to-secondary-light/30" />
-        <div className="hero-d absolute top-20 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 blur-3xl opacity-0" />
-        <div className="hero-d absolute bottom-20 left-10 sm:left-20 w-40 sm:w-56 h-40 sm:h-56 rounded-full bg-gradient-to-tr from-secondary/15 to-primary/10 blur-3xl opacity-0" />
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <Image src="/images/hero-spa.jpg" alt="Amatista Spa ambiente" fill className="object-cover" priority />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
+        </div>
+        {/* Decorative elements */}
         <div className="absolute top-32 left-[15%] w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
         <div className="absolute top-48 right-[20%] w-1 h-1 bg-primary-light rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="absolute bottom-40 left-[30%] w-2 h-2 bg-accent-light rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
+        {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
-          <div className="mb-6 flex justify-center"><div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent" /></div>
+          <div className="hero-logo mb-8 flex justify-center opacity-0">
+            <Image src="/images/logo.png" alt="Amatista - Belleza que Transmuta" width={220} height={220} className="w-40 h-auto sm:w-52 md:w-56 drop-shadow-lg" priority />
+          </div>
           <h1 className="hero-t font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-tight opacity-0">
             Belleza que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Transmuta</span>
           </h1>
-          <p className="hero-s mt-6 text-base sm:text-lg md:text-xl text-foreground/60 font-body font-light max-w-xl mx-auto leading-relaxed opacity-0">Tu santuario de bienestar en el corazón de Playa del Carmen</p>
-          <p className="hero-s mt-2 text-sm sm:text-base text-foreground/40 font-body font-light opacity-0">Your beauty &amp; wellness sanctuary in the heart of Playa del Carmen</p>
+          <p className="hero-s mt-6 text-base sm:text-lg md:text-xl text-foreground/70 font-body font-light max-w-xl mx-auto leading-relaxed opacity-0">Tu santuario de bienestar en el corazón de Playa del Carmen</p>
+          <p className="hero-s mt-2 text-sm sm:text-base text-foreground/50 font-body font-light opacity-0">Your beauty &amp; wellness sanctuary in the heart of Playa del Carmen</p>
           <div className="hero-c mt-10 flex flex-col sm:flex-row gap-4 justify-center opacity-0">
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 cursor-pointer">Reservar Cita / Book Now</a>
-            <a href="#servicios" className="px-8 py-3.5 border-2 border-secondary-dark text-foreground font-semibold rounded-full hover:bg-secondary-light/50 transition-all cursor-pointer">Ver Servicios / Services</a>
+            <a href={WA} target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 cursor-pointer">Reservar Cita / Book Now</a>
+            <a href="#servicios" className="px-8 py-3.5 border-2 border-white/30 text-foreground font-semibold rounded-full hover:bg-white/20 backdrop-blur-sm transition-all cursor-pointer">Ver Servicios / Services</a>
           </div>
           <div className="mt-12 flex justify-center"><div className="w-px h-16 bg-gradient-to-b from-accent/50 to-transparent" /></div>
         </div>
       </section>
 
-      {/* SERVICIOS */}
+      {/* ══ SERVICIOS ══ */}
       <section id="servicios" className="py-20 sm:py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14 rv">
@@ -199,16 +210,29 @@ export default function Home() {
           </div>
           <div className="sg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {SERVICES.map((s) => (
-              <div key={s.name} className="sc group bg-card rounded-2xl p-6 border border-border hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 cursor-pointer opacity-0">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light/30 to-accent-light/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <s.icon size={22} className="text-primary" strokeWidth={1.5} />
+              <div key={s.name} className="sc group bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 cursor-pointer opacity-0">
+                {/* Service image */}
+                <div className="relative h-40 overflow-hidden">
+                  {s.img ? (
+                    <Image src={s.img} alt={`${s.name} - ${s.en}`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary-light/30 to-accent-light/20 flex items-center justify-center">
+                      <s.icon size={36} className="text-primary/40" strokeWidth={1} />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                 </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground">{s.name}</h3>
-                <p className="text-xs text-foreground/40 font-body">{s.en}</p>
-                <p className="mt-2 text-sm text-foreground/50 font-body leading-relaxed">{s.desc}</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-sm font-semibold text-accent">Desde {s.price}</span>
-                  <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-primary hover:text-primary-dark flex items-center gap-1 cursor-pointer">Agendar <ChevronRight size={14} /></a>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <s.icon size={18} className="text-primary" strokeWidth={1.5} />
+                    <h3 className="font-heading text-base font-semibold text-foreground">{s.name}</h3>
+                  </div>
+                  <p className="text-xs text-foreground/40 font-body mb-2">{s.en}</p>
+                  <p className="text-sm text-foreground/50 font-body leading-relaxed">{s.desc}</p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="text-sm font-semibold text-accent">Desde {s.price}</span>
+                    <a href={WA} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-primary hover:text-primary-dark flex items-center gap-1 cursor-pointer">Agendar <ChevronRight size={14} /></a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -216,7 +240,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOSOTROS */}
+      {/* ══ NOSOTROS ══ */}
       <section id="nosotros" className="py-20 sm:py-28 px-4 bg-gradient-to-b from-muted/50 to-background">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="rv">
@@ -239,17 +263,22 @@ export default function Home() {
               ))}
             </div>
           </div>
+          {/* Real spa photo */}
           <div className="rv relative">
-            <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-primary-light/40 via-secondary-light/60 to-accent-light/30 flex items-center justify-center overflow-hidden">
-              <div className="text-center"><div className="w-24 h-24 mx-auto rounded-full bg-white/50 flex items-center justify-center"><Gem size={40} className="text-primary" strokeWidth={1} /></div><p className="mt-4 font-heading text-lg text-primary-dark/60">Foto del Spa</p><p className="text-xs text-foreground/40 font-body">Coming soon</p></div>
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
+              <Image src="/images/spa-interior.jpg" alt="Interior Amatista Beauty & Spa Playa del Carmen" fill className="object-cover" loading="lazy" />
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-accent/20 -z-10" />
             <div className="absolute -top-4 -left-4 w-16 h-16 rounded-xl bg-primary/10 -z-10" />
+            {/* Logo overlay */}
+            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg">
+              <Image src="/images/logo.png" alt="Amatista" width={80} height={80} className="w-16 h-auto" loading="lazy" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* GALERÍA */}
+      {/* ══ GALERÍA ══ */}
       <section id="galeria" className="py-20 sm:py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14 rv">
@@ -258,9 +287,13 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {GALLERY.map((g, i) => (
-              <div key={g.label} className={`rv group relative rounded-2xl overflow-hidden cursor-pointer ${i === 0 ? "md:row-span-2" : ""}`}>
-                <div className={`bg-gradient-to-br ${g.gradient} ${i === 0 ? "aspect-[3/4] md:aspect-auto md:h-full" : "aspect-square"} flex items-center justify-center transition-transform duration-500 group-hover:scale-105`}>
-                  <div className="text-center opacity-60 group-hover:opacity-80 transition-opacity"><Sparkles size={24} className="mx-auto text-white/80" /><p className="mt-2 text-sm font-body text-white/70">{g.label}</p></div>
+              <div key={g.label} className={`rv group relative rounded-2xl overflow-hidden cursor-pointer ${g.span ? "md:row-span-2" : ""}`}>
+                <div className={`relative ${g.span ? "aspect-[3/4] md:aspect-auto md:h-full min-h-[200px]" : "aspect-square"}`}>
+                  <Image src={g.img} alt={`${g.label} - Amatista Beauty & Spa`} fill className="object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-sm font-body font-semibold text-white">{g.label}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -268,7 +301,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIOS */}
+      {/* ══ TESTIMONIOS ══ */}
       <section className="py-20 sm:py-28 px-4 bg-gradient-to-b from-background to-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14 rv">
@@ -278,7 +311,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
-              <div key={t.author} className="rv bg-card rounded-2xl p-6 sm:p-8 border border-border">
+              <div key={t.author} className="rv bg-card rounded-2xl p-6 sm:p-8 border border-border hover:shadow-lg transition-shadow">
                 <div className="flex gap-1 mb-4">{[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-accent fill-accent" />)}</div>
                 <p className="text-foreground/70 font-body text-sm leading-relaxed italic">&ldquo;{t.en}&rdquo;</p>
                 <p className="mt-2 text-foreground/40 font-body text-xs leading-relaxed italic">&ldquo;{t.es}&rdquo;</p>
@@ -289,7 +322,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PAQUETES */}
+      {/* ══ PAQUETES ══ */}
       <section className="py-20 sm:py-28 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14 rv">
@@ -314,7 +347,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTACTO + MAPS */}
+      {/* ══ CONTACTO + MAPS ══ */}
       <section id="contacto" className="py-20 sm:py-28 px-4 bg-gradient-to-b from-muted/30 to-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14 rv">
@@ -328,7 +361,7 @@ export default function Home() {
             <div className="rv flex flex-col justify-center gap-6 sm:gap-8">
               {[
                 { icon: MapPin, title: "Dirección / Address", content: <p className="text-sm text-foreground/60 font-body mt-1">Entre calles 26 y 28 Nte, Col. Gonzalo Guerrero<br />Playa del Carmen, Q.R. 77710, México</p> },
-                { icon: Phone, title: "WhatsApp", content: <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:text-primary-dark font-body mt-1 block cursor-pointer">+52 984 463 2344</a> },
+                { icon: Phone, title: "WhatsApp", content: <a href={WA} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:text-primary-dark font-body mt-1 block cursor-pointer">+52 984 463 2344</a> },
                 { icon: InstaIcon, title: "Instagram", content: <a href={IG} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:text-primary-dark font-body mt-1 block cursor-pointer">@amatistabeautyandspa</a> },
                 { icon: Clock, title: "Horario / Hours", content: <p className="text-sm text-foreground/60 font-body mt-1">Lunes a Sábado / Mon-Sat: 9:00 AM - 7:00 PM</p> },
               ].map((item) => (
@@ -337,27 +370,33 @@ export default function Home() {
                   <div><h4 className="font-heading font-semibold text-foreground">{item.title}</h4>{item.content}</div>
                 </div>
               ))}
-              <button onClick={() => window.open(getDirectionsUrl(), "_blank")} className="mt-2 inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark hover:shadow-md transition-all cursor-pointer w-fit font-semibold text-sm">
-                <MapPin size={18} />
-                Cómo Llegar / Get Directions
-              </button>
-              <a href="https://www.google.com/maps/search/Amatista+Beauty+Spa+Playa+del+Carmen" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-border rounded-xl hover:shadow-md transition-all cursor-pointer w-fit">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/></svg>
-                <span className="text-sm font-semibold text-foreground/70">Ver en Google Maps</span>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3 mt-2">
+                <button onClick={() => window.open(getDirectionsUrl(), "_blank")} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark transition-all cursor-pointer font-semibold text-sm">
+                  <MapPin size={18} /> Cómo Llegar / Get Directions
+                </button>
+                <a href={`https://www.google.com/maps/search/Amatista+Beauty+Spa+Playa+del+Carmen/@${COORDS.lat},${COORDS.lng},17z`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-border rounded-xl hover:shadow-md transition-all cursor-pointer text-sm font-semibold text-foreground/70">
+                  <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/></svg>
+                  Ver en Google Maps
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ══ FOOTER ══ */}
       <footer className="bg-foreground text-white/80 py-12 sm:py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             <div>
-              <span className="font-heading text-2xl font-semibold tracking-[0.2em] text-white">AMATISTA</span>
-              <p className="text-xs tracking-[0.15em] text-accent-light mt-1">BELLEZA QUE TRANSMUTA</p>
-              <p className="mt-4 text-sm text-white/50 font-body leading-relaxed">Tu santuario de belleza y bienestar en el corazón de Playa del Carmen.</p>
+              <div className="flex items-center gap-3 mb-4">
+                <Image src="/images/logo.png" alt="Amatista" width={48} height={48} className="w-12 h-auto brightness-0 invert opacity-80" loading="lazy" />
+                <div>
+                  <span className="font-heading text-xl font-semibold tracking-[0.15em] text-white">AMATISTA</span>
+                  <p className="text-[9px] tracking-[0.12em] text-accent-light -mt-0.5">BELLEZA QUE TRANSMUTA</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/50 font-body leading-relaxed">Tu santuario de belleza y bienestar en el corazón de Playa del Carmen.</p>
               <p className="mt-1 text-xs text-white/30 font-body">Your beauty &amp; wellness sanctuary in the heart of Playa del Carmen.</p>
             </div>
             <div>
@@ -369,8 +408,8 @@ export default function Home() {
               <div className="flex flex-col gap-2 text-sm text-white/50 font-body">
                 <p>Entre calles 26 y 28 Nte, Gonzalo Guerrero</p>
                 <p>Playa del Carmen, Q.R. 77710</p>
-                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors cursor-pointer">+52 984 463 2344</a>
-                <a href={IG} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors cursor-pointer">@amatistabeautyandspa</a>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors cursor-pointer">+52 984 463 2344</a>
+                <a href={IG} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors cursor-pointer flex items-center gap-2"><InstaIcon size={16} /> @amatistabeautyandspa</a>
               </div>
             </div>
           </div>
@@ -381,8 +420,8 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* WA FLOAT */}
-      <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="whatsapp-float" aria-label="Contact via WhatsApp">
+      {/* ══ WA FLOAT ══ */}
+      <a href={WA} target="_blank" rel="noopener noreferrer" className="whatsapp-float" aria-label="Contact via WhatsApp">
         <svg viewBox="0 0 32 32" width="32" height="32" fill="white">
           <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.128 6.744 3.046 9.378L1.054 31.29l6.118-1.958A15.91 15.91 0 0016.004 32C24.826 32 32 24.826 32 16.004S24.826 0 16.004 0zm9.302 22.602c-.39 1.1-1.932 2.014-3.166 2.28-.846.18-1.95.322-5.67-1.218-4.762-1.97-7.826-6.798-8.064-7.114-.23-.316-1.912-2.55-1.912-4.862s1.21-3.448 1.64-3.922c.39-.432.918-.606 1.2-.606.15 0 .282.008.402.014.432.018.648.042.934.724.356.854 1.224 2.982 1.33 3.2.108.216.18.468.036.754-.136.29-.204.47-.408.724-.204.252-.428.564-.612.756-.204.216-.418.45-.18.882.238.432 1.06 1.746 2.274 2.828 1.562 1.392 2.876 1.824 3.286 2.028.324.162.71.132.958-.12.314-.324.702-.86 1.098-1.39.282-.378.638-.426.992-.282.358.136 2.268 1.068 2.656 1.264.39.196.648.294.744.456.094.162.094.936-.296 2.036z"/>
         </svg>
