@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import HoverImageReveal from "@/components/HoverImageReveal";
+import SmoothScrollSlider from "@/components/SmoothScrollSlider";
 import {
   Flower2,
   Sparkles,
@@ -78,13 +80,24 @@ const TESTIMONIALS = [
   { en: "I came for a massage and left feeling completely renewed. The space transmits a unique peace. 100% recommended.", es: "Vine por un masaje y salí renovada. El espacio transmite una paz única. 100% recomendado.", author: "Sofía R." },
 ];
 
-const GALLERY = [
-  { label: "Recepción / Reception", img: "/images/spa-reception.jpg", span: true },
-  { label: "Masajes / Massage Room", img: "/images/spa-massage.jpg", span: false },
-  { label: "Uñas / Nail Station", img: "/images/spa-nails.jpg", span: false },
-  { label: "Facial Room", img: "/images/spa-facial.jpg", span: false },
-  { label: "Ambiente / Atmosphere", img: "/images/spa-candles.jpg", span: false },
-  { label: "Interior", img: "/images/spa-interior.jpg", span: false },
+const EXPERIENCES = [
+  { text: "MASAJES RELAJANTES", image: "/images/spa-massage.jpg", link: WA },
+  { text: "TRATAMIENTOS FACIALES", image: "/images/spa-facial.jpg", link: WA },
+  { text: "MANICURE & PEDICURE", image: "/images/spa-nails.jpg", link: WA },
+  { text: "EXTENSIONES DE PESTAÑAS", image: "/images/spa-lashes.jpg", link: WA },
+  { text: "MAQUILLAJE PROFESIONAL", image: "/images/spa-candles.jpg", link: WA },
+];
+
+const SLIDER_IMAGES = [
+  { src: "/images/spa-reception.jpg", alt: "Recepción Amatista Spa" },
+  { src: "/images/spa-massage.jpg", alt: "Massage Room" },
+  { src: "/images/spa-nails.jpg", alt: "Nail Station" },
+  { src: "/images/spa-facial.jpg", alt: "Facial Treatment" },
+  { src: "/images/spa-candles.jpg", alt: "Spa Atmosphere" },
+  { src: "/images/spa-interior.jpg", alt: "Interior Design" },
+  { src: "/images/spa-lashes.jpg", alt: "Lash Extensions" },
+  { src: "/images/spa-relax.jpg", alt: "Relaxation Area" },
+  { src: "/images/hero-spa.jpg", alt: "Amatista Spa" },
 ];
 
 /* ───── Scroll reveal ───── */
@@ -278,26 +291,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ GALERÍA ══ */}
-      <section id="galeria" className="py-20 sm:py-28 px-4">
-        <div className="max-w-7xl mx-auto">
+      {/* ══ EXPERIENCIAS — HoverImageReveal ══ */}
+      <section className="py-16 sm:py-24 px-4 bg-gradient-to-b from-background to-muted/30 hidden md:block">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8 rv">
+            <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Experiencias / Experiences</span>
+            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-foreground mt-3">Descubrí tu tratamiento</h2>
+            <p className="mt-2 text-foreground/40 font-body text-sm">Hover to discover your treatment</p>
+          </div>
+          <HoverImageReveal
+            items={EXPERIENCES}
+            textColor="var(--foreground)"
+            dimColor="var(--secondary)"
+            accentColor="var(--primary)"
+            fontSize="clamp(1.8rem, 4vw, 3.5rem)"
+            imageWidth={300}
+            imageHeight={400}
+            rounded={20}
+            offsetX={250}
+            offsetY={-30}
+            followStrength={4}
+          />
+        </div>
+      </section>
+
+      {/* ══ GALERÍA — SmoothScrollSlider ══ */}
+      <section id="galeria" className="py-20 sm:py-28">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-14 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Galería / Gallery</span>
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mt-3">Nuestro Espacio / Our Space</h2>
+            <p className="mt-3 text-foreground/40 font-body text-sm">Scroll or drag to explore</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            {GALLERY.map((g, i) => (
-              <div key={g.label} className={`rv group relative rounded-2xl overflow-hidden cursor-pointer ${g.span ? "md:row-span-2" : ""}`}>
-                <div className={`relative ${g.span ? "aspect-[3/4] md:aspect-auto md:h-full min-h-[200px]" : "aspect-square"}`}>
-                  <Image src={g.img} alt={`${g.label} - Amatista Beauty & Spa`} fill className="object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-sm font-body font-semibold text-white">{g.label}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="h-[400px] sm:h-[520px]">
+          <SmoothScrollSlider
+            images={SLIDER_IMAGES}
+            slideWidth={340}
+            slideHeight={440}
+            spacing={2}
+            direction="right"
+            smoothness={10}
+            radius={20}
+            dim={8}
+            background="transparent"
+            sensitivity={5}
+            loop
+          />
         </div>
       </section>
 
