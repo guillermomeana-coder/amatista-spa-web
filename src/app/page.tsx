@@ -58,14 +58,14 @@ const NAV = [
 ];
 
 const SERVICES = [
-  { icon: Flower2, name: "Masajes Relajantes", en: "Relaxing Massages", desc: "Relajá cuerpo y mente con nuestros masajes terapéuticos y descontracturantes.", descEn: "Relax body and mind with our therapeutic deep tissue massages.", price: "$800 MXN", img: "/images/spa-massage.jpg" },
-  { icon: Sparkles, name: "Tratamientos Faciales", en: "Facial Treatments", desc: "Rejuvenecé tu piel con tratamientos personalizados de hidratación profunda.", descEn: "Rejuvenate your skin with personalized deep hydration treatments.", price: "$700 MXN", img: "/images/spa-facial.jpg" },
-  { icon: Gem, name: "Manicure & Pedicure", en: "Manicure & Pedicure", desc: "Uñas perfectas con técnicas de vanguardia: Gel, Acrílico, Russian Manicure.", descEn: "Perfect nails with cutting-edge techniques: Gel, Acrylic, Russian Manicure.", price: "$550 MXN", img: "/images/spa-nails.jpg" },
-  { icon: Eye, name: "Extensiones de Pestañas", en: "Lash Extensions", desc: "Mirada cautivadora con extensiones profesionales pelo por pelo.", descEn: "Captivating look with professional individual lash extensions.", price: "$600 MXN", img: "/images/spa-lashes.jpg" },
-  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN", img: "/images/spa-brows.jpg" },
-  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN", img: "/images/spa-waxing.jpg" },
-  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN", img: "/images/spa-makeup.jpg" },
-  { icon: Heart, name: "Tratamientos Corporales", en: "Body Treatments", desc: "Envolturas, exfoliaciones y tratamientos reductivos para tu bienestar.", descEn: "Body wraps, exfoliations and slimming treatments for your wellness.", price: "$800 MXN", img: "/images/spa-relax.jpg" },
+  { icon: Flower2, name: "Masajes Relajantes", en: "Relaxing Massages", desc: "Relajá cuerpo y mente con nuestros masajes terapéuticos y descontracturantes.", descEn: "Relax body and mind with our therapeutic deep tissue massages.", price: "$800 MXN", img: "/images/real-massage-room.png" },
+  { icon: Sparkles, name: "Tratamientos Faciales", en: "Facial Treatments", desc: "Rejuvenecé tu piel con tratamientos personalizados de hidratación profunda.", descEn: "Rejuvenate your skin with personalized deep hydration treatments.", price: "$700 MXN", img: "/images/real-buddha-stones.png" },
+  { icon: Gem, name: "Manicure & Pedicure", en: "Manicure & Pedicure", desc: "Uñas perfectas con técnicas de vanguardia: Gel, Acrílico, Russian Manicure.", descEn: "Perfect nails with cutting-edge techniques: Gel, Acrylic, Russian Manicure.", price: "$550 MXN", img: "/images/real-nail-station.png" },
+  { icon: Eye, name: "Extensiones de Pestañas", en: "Lash Extensions", desc: "Mirada cautivadora con extensiones profesionales pelo por pelo.", descEn: "Captivating look with professional individual lash extensions.", price: "$600 MXN", img: "/images/real-nail-wide.png" },
+  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN", img: "/images/real-reception-geoda.jpg" },
+  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN", img: "/images/real-massage-front.png" },
+  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN", img: "/images/real-reception-logo.jpg" },
+  { icon: Heart, name: "Tratamientos Corporales", en: "Body Treatments", desc: "Envolturas, exfoliaciones y tratamientos reductivos para tu bienestar.", descEn: "Body wraps, exfoliations and slimming treatments for your wellness.", price: "$800 MXN", img: "/images/real-geoda-logo.png" },
 ];
 
 const PACKAGES = [
@@ -81,23 +81,23 @@ const TESTIMONIALS = [
 ];
 
 const EXPERIENCES = [
-  { text: "MASAJES RELAJANTES", image: "/images/spa-massage.jpg", link: WA },
-  { text: "TRATAMIENTOS FACIALES", image: "/images/spa-facial.jpg", link: WA },
-  { text: "MANICURE & PEDICURE", image: "/images/spa-nails.jpg", link: WA },
-  { text: "EXTENSIONES DE PESTAÑAS", image: "/images/spa-lashes.jpg", link: WA },
-  { text: "MAQUILLAJE PROFESIONAL", image: "/images/spa-candles.jpg", link: WA },
+  { text: "MASAJES RELAJANTES", image: "/images/real-massage-room.png", link: WA },
+  { text: "TRATAMIENTOS FACIALES", image: "/images/real-buddha-stones.png", link: WA },
+  { text: "MANICURE & PEDICURE", image: "/images/real-nail-station.png", link: WA },
+  { text: "EXTENSIONES DE PESTAÑAS", image: "/images/real-nail-wide.png", link: WA },
+  { text: "MAQUILLAJE PROFESIONAL", image: "/images/real-reception-logo.jpg", link: WA },
 ];
 
 const SLIDER_IMAGES = [
-  { src: "/images/spa-reception.jpg", alt: "Recepción Amatista Spa" },
-  { src: "/images/spa-massage.jpg", alt: "Massage Room" },
-  { src: "/images/spa-nails.jpg", alt: "Nail Station" },
-  { src: "/images/spa-facial.jpg", alt: "Facial Treatment" },
-  { src: "/images/spa-candles.jpg", alt: "Spa Atmosphere" },
-  { src: "/images/spa-interior.jpg", alt: "Interior Design" },
-  { src: "/images/spa-lashes.jpg", alt: "Lash Extensions" },
-  { src: "/images/spa-relax.jpg", alt: "Relaxation Area" },
-  { src: "/images/hero-spa.jpg", alt: "Amatista Spa" },
+  { src: "/images/real-fachada.jpg", alt: "Fachada Amatista Beauty & Spa" },
+  { src: "/images/real-massage-room.png", alt: "Sala de Masajes" },
+  { src: "/images/real-nail-station.png", alt: "Área de Uñas" },
+  { src: "/images/real-geoda-logo.png", alt: "Geoda de Amatista" },
+  { src: "/images/real-nail-wide.png", alt: "Nail Station" },
+  { src: "/images/real-massage-front.png", alt: "Massage Room" },
+  { src: "/images/real-reception-geoda.jpg", alt: "Recepción" },
+  { src: "/images/real-buddha-stones.png", alt: "Hot Stones & Buddha" },
+  { src: "/images/real-reception-logo.jpg", alt: "Logo Amatista" },
 ];
 
 /* ───── Scroll reveal ───── */
@@ -187,7 +187,7 @@ export default function Home() {
       <section id="inicio" ref={hero} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <Image src="/images/hero-spa.jpg" alt="Amatista Spa ambiente" fill className="object-cover" priority />
+          <Image src="/images/real-nail-station.png" alt="Interior Amatista Beauty & Spa Playa del Carmen" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/65 to-background/90" />
         </div>
         {/* Decorative elements */}
@@ -279,7 +279,7 @@ export default function Home() {
           {/* Real spa photo */}
           <div className="rv relative">
             <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
-              <Image src="/images/spa-interior.jpg" alt="Interior Amatista Beauty & Spa Playa del Carmen" fill className="object-cover" loading="lazy" />
+              <Image src="/images/real-massage-room.png" alt="Sala de masajes Amatista Beauty & Spa Playa del Carmen" fill className="object-cover" loading="lazy" />
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-accent/20 -z-10" />
             <div className="absolute -top-4 -left-4 w-16 h-16 rounded-xl bg-primary/10 -z-10" />
