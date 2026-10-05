@@ -129,7 +129,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <AuraCursor />
+        <AuraCursor size={200} coreSize={80} blur={60} coreBlur={30} opacity={0.08} coreOpacity={0.12} zIndex={1} />
         {children}
       </body>
     </html>

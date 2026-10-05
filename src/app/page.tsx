@@ -62,9 +62,9 @@ const SERVICES = [
   { icon: Sparkles, name: "Tratamientos Faciales", en: "Facial Treatments", desc: "Rejuvenecé tu piel con tratamientos personalizados de hidratación profunda.", descEn: "Rejuvenate your skin with personalized deep hydration treatments.", price: "$700 MXN", img: "/images/spa-facial.jpg" },
   { icon: Gem, name: "Manicure & Pedicure", en: "Manicure & Pedicure", desc: "Uñas perfectas con técnicas de vanguardia: Gel, Acrílico, Russian Manicure.", descEn: "Perfect nails with cutting-edge techniques: Gel, Acrylic, Russian Manicure.", price: "$550 MXN", img: "/images/spa-nails.jpg" },
   { icon: Eye, name: "Extensiones de Pestañas", en: "Lash Extensions", desc: "Mirada cautivadora con extensiones profesionales pelo por pelo.", descEn: "Captivating look with professional individual lash extensions.", price: "$600 MXN", img: "/images/spa-lashes.jpg" },
-  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN", img: null },
-  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN", img: null },
-  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN", img: null },
+  { icon: Brush, name: "Diseño de Cejas", en: "Brow Design", desc: "Laminado, threading y diseño personalizado para enmarcar tu mirada.", descEn: "Lamination, threading and custom brow design to frame your look.", price: "$350 MXN", img: "/images/spa-brows.jpg" },
+  { icon: Zap, name: "Depilación", en: "Hair Removal", desc: "Depilación definitiva y con cera, con tecnología avanzada y cuidado especial.", descEn: "Permanent and wax hair removal with advanced technology.", price: "$400 MXN", img: "/images/spa-waxing.jpg" },
+  { icon: Palette, name: "Maquillaje Profesional", en: "Professional Makeup", desc: "Looks para cada ocasión: social, nupcial, editorial y artístico.", descEn: "Looks for every occasion: social, bridal, editorial and artistic.", price: "$900 MXN", img: "/images/spa-makeup.jpg" },
   { icon: Heart, name: "Tratamientos Corporales", en: "Body Treatments", desc: "Envolturas, exfoliaciones y tratamientos reductivos para tu bienestar.", descEn: "Body wraps, exfoliations and slimming treatments for your wellness.", price: "$800 MXN", img: "/images/spa-relax.jpg" },
 ];
 
@@ -188,7 +188,7 @@ export default function Home() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image src="/images/hero-spa.jpg" alt="Amatista Spa ambiente" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/65 to-background/90" />
         </div>
         {/* Decorative elements */}
         <div className="absolute top-32 left-[15%] w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
@@ -202,8 +202,8 @@ export default function Home() {
           <h1 className="hero-t font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-tight opacity-0">
             Belleza que <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Transmuta</span>
           </h1>
-          <p className="hero-s mt-6 text-base sm:text-lg md:text-xl text-foreground/70 font-body font-light max-w-xl mx-auto leading-relaxed opacity-0">Tu santuario de bienestar en el corazón de Playa del Carmen</p>
-          <p className="hero-s mt-2 text-sm sm:text-base text-foreground/50 font-body font-light opacity-0">Your beauty &amp; wellness sanctuary in the heart of Playa del Carmen</p>
+          <p className="hero-s mt-6 text-base sm:text-lg md:text-xl text-foreground/90 font-body font-light max-w-xl mx-auto leading-relaxed opacity-0">Tu santuario de bienestar en el corazón de Playa del Carmen</p>
+          <p className="hero-s mt-2 text-sm sm:text-base text-foreground/60 font-body font-light opacity-0">Your beauty &amp; wellness sanctuary in the heart of Playa del Carmen</p>
           <div className="hero-c mt-10 flex flex-col sm:flex-row gap-4 justify-center opacity-0">
             <a href={WA} target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 cursor-pointer">Reservar Cita / Book Now</a>
             <a href="#servicios" className="px-8 py-3.5 border-2 border-white/30 text-foreground font-semibold rounded-full hover:bg-white/20 backdrop-blur-sm transition-all cursor-pointer">Ver Servicios / Services</a>
@@ -218,8 +218,8 @@ export default function Home() {
           <div className="text-center mb-14 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Nuestros Servicios / Our Services</span>
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mt-3">Experiencias de Transformación</h2>
-            <p className="mt-4 text-foreground/50 font-body max-w-lg mx-auto">Cada tratamiento es un ritual diseñado para reconectarte con tu esencia</p>
-            <p className="mt-1 text-foreground/35 font-body text-sm">Every treatment is a ritual designed to reconnect you with your essence</p>
+            <p className="mt-4 text-foreground/65 font-body max-w-lg mx-auto">Cada tratamiento es un ritual diseñado para reconectarte con tu esencia</p>
+            <p className="mt-1 text-foreground/50 font-body text-sm">Every treatment is a ritual designed to reconnect you with your essence</p>
           </div>
           <div className="sg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {SERVICES.map((s) => (
@@ -261,7 +261,7 @@ export default function Home() {
             <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-foreground mt-3">Un espacio donde la belleza se transforma en <span className="text-primary">bienestar</span></h2>
             <p className="mt-6 text-foreground/60 font-body leading-relaxed">Amatista nació de la pasión por la belleza consciente y el bienestar integral. Inspirados en la piedra amatista, símbolo de transformación y equilibrio, creamos un espacio donde cada tratamiento es un ritual de conexión contigo misma.</p>
             <p className="mt-4 text-foreground/60 font-body leading-relaxed">En nuestro spa, ubicado en el vibrante corazón de Playa del Carmen, fusionamos técnicas profesionales de vanguardia con la energía sanadora del Caribe mexicano.</p>
-            <p className="mt-4 text-foreground/40 font-body text-sm italic leading-relaxed">Amatista was born from a passion for conscious beauty and holistic wellness. Inspired by the amethyst stone, symbol of transformation and balance, we created a space where every treatment is a ritual of self-connection, blending cutting-edge techniques with the healing energy of the Mexican Caribbean.</p>
+            <p className="mt-4 text-foreground/55 font-body text-sm italic leading-relaxed">Amatista was born from a passion for conscious beauty and holistic wellness. Inspired by the amethyst stone, symbol of transformation and balance, we created a space where every treatment is a ritual of self-connection, blending cutting-edge techniques with the healing energy of the Mexican Caribbean.</p>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { es: "Profesionales certificadas", en: "Certified professionals" },
@@ -297,7 +297,7 @@ export default function Home() {
           <div className="text-center mb-8 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Experiencias / Experiences</span>
             <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-foreground mt-3">Descubrí tu tratamiento</h2>
-            <p className="mt-2 text-foreground/40 font-body text-sm">Hover to discover your treatment</p>
+            <p className="mt-2 text-foreground/55 font-body text-sm">Hover to discover your treatment</p>
           </div>
           <HoverImageReveal
             items={EXPERIENCES}
@@ -321,7 +321,7 @@ export default function Home() {
           <div className="text-center mb-14 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Galería / Gallery</span>
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mt-3">Nuestro Espacio / Our Space</h2>
-            <p className="mt-3 text-foreground/40 font-body text-sm">Scroll or drag to explore</p>
+            <p className="mt-3 text-foreground/55 font-body text-sm">Scroll or drag to explore</p>
           </div>
         </div>
         <div className="h-[400px] sm:h-[520px]">
@@ -347,7 +347,7 @@ export default function Home() {
           <div className="text-center mb-14 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Testimonios / Reviews</span>
             <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-foreground mt-3">Lo que dicen nuestras clientas</h2>
-            <p className="mt-2 text-foreground/40 font-body text-sm">What our clients say</p>
+            <p className="mt-2 text-foreground/55 font-body text-sm">What our clients say</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
@@ -368,8 +368,8 @@ export default function Home() {
           <div className="text-center mb-14 rv">
             <span className="text-accent font-body text-sm font-semibold tracking-[0.2em] uppercase">Paquetes / Special Packages</span>
             <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-foreground mt-3">Experiencias Completas</h2>
-            <p className="mt-4 text-foreground/50 font-body max-w-lg mx-auto">Combina nuestros mejores tratamientos y ahorra</p>
-            <p className="mt-1 text-foreground/35 font-body text-sm">Combine our best treatments and save</p>
+            <p className="mt-4 text-foreground/65 font-body max-w-lg mx-auto">Combina nuestros mejores tratamientos y ahorra</p>
+            <p className="mt-1 text-foreground/50 font-body text-sm">Combine our best treatments and save</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {PACKAGES.map((p) => (
