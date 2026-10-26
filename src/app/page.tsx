@@ -458,7 +458,7 @@ export default function Home() {
             <p>Belleza que Transmuta ✦ Playa del Carmen, México</p>
           </div>
         </div>
-      </footer>
+      <div style={{textAlign:"center",padding:"8px 0",opacity:0.4,fontSize:"11px"}}><a href="https://orionblue.space" target="_blank" rel="noopener noreferrer" style={{color:"inherit",textDecoration:"none"}}>Built by Orion Blue</a></div></footer>
 
       {/* ══ WA FLOAT ══ */}
       <a href={WA} target="_blank" rel="noopener noreferrer" className="whatsapp-float" aria-label="Contact via WhatsApp">
